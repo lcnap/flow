@@ -1,0 +1,40 @@
+{
+    "server": [{
+        "scheme": "https",
+        "listen": ":9090",
+        "ssl": {} ,
+        "route":[
+            {
+                "location": "/ping",
+                "handler": "./gosrc/yaegi_func.go:ping" 
+            },
+            {
+                "location": "/longfunc",
+                "handler": "./gosrc/yaegi_func.go:longfunc"
+            },
+            {
+                "location": "/yaegi",
+                "handler": "./gosrc/yaegi_func.go:f"
+            },{
+                "location": "/ipp",
+                "pass": "http://120.25.146.112:9003"
+            }
+        ]
+    },{
+        "listen": "127.0.0.1:9092",
+        "route":[
+          {
+                "location": "/",
+                "pass": "http://120.25.146.112:9003"
+            }
+        ]
+    }
+],
+    "upstream": [
+        { "name":"server1","endpoint": "http://12.1.1.1/fff"}
+    ],
+    "log": {
+        "access": "./logs/access.log",
+        "error": "./logs/error.log"
+    }
+}
